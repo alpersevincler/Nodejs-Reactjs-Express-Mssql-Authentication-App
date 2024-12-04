@@ -37,13 +37,24 @@ let dataDB = await db.request().query(queryClick);
 console.log("dataDB = ", dataDB.recordsets);
 
 app.post('/register', async(req, res) => {
-    // let queryCreate = `INSERT INTO login VALUES ( '${req.body.name}', '${req.body.email}','${req.body.password}' )`;
 
-    // let employees = await db.request().query(queryCreate);
+    try{
+        bcrypt.hash(req.body.password.toString(), salt, async (err, hash) => {
+            if(err) return res.json({Error: "Error for hashing password"});
 
-    // console.log('called /hello');
+            const sql = `INSERT INTO login (name, email, password) VALUES ('${req.body.name}', '${req.body.email}', '${hash}')`;
 
-    return res.json({Status: "Success"});
+            await db.request().query(sql, (err, result) => {
+                if(err)
+                    return res.json({Error: "Inserting data Error in server", err});
+                return res.json({Status: "Success Insert!", result});
+            });
+        })
+    }catch(error) {
+        console.log("server sql error = ", error);
+    }
+
+    
     // const sql = "INSERT INTO login (`name`,`email`,`password`) VALUES (?)";
 
     // bcrypt.hash(req.body.password.toString(), salt, (err, hash) => {
@@ -58,7 +69,7 @@ app.post('/register', async(req, res) => {
     //         return res.json({Status: "Success"});
     //     })
     // })
-})
+});
 
 
 app.listen(8081, () => {

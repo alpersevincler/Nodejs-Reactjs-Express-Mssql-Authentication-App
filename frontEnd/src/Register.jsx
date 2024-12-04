@@ -19,7 +19,7 @@ function Register() {
 
   return (
     <div className='d-flex justify-content-center align-items-center bg-primary vh-100'>
-        <div className='bg-white p-3 rounded w-25'>
+        <div className='bg-white p-3 rounded w-50'>
             <h2>Sign-Up</h2>
             <form onSubmit={handleSubmit}>
                 <div className='mb-3'>
