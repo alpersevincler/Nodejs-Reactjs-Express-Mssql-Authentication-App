@@ -47,7 +47,7 @@ app.post('/register', async(req, res) => {
             await db.request().query(sql, (err, result) => {
                 if(err)
                     return res.json({Error: "Inserting data Error in server", err});
-                return res.json({Status: "Success Insert!", result});
+                return res.json({Status: "Success", result});
             });
         })
     }catch(error) {
