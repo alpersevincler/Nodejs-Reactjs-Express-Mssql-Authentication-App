@@ -1,21 +1,30 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
 
 function Register() {
 
     const [values, setValues] = useState({name: '', email: '', password: ''});
+    const navigate = useNavigate();
 
     const handleSubmit = (event) => {
+        // event.preventDefault() ile form'daki button'a tıklandığında sayfanın yenilenmesini engellemiş olduk
         event.preventDefault();
         axios.post('http://localhost:8081/register', values)
-        .then(res => {console.log("res = ", res); console.log("yess")})
+        .then(res => {
+            console.log("res = ", res)
+            if(res.data.Status === "Success") {
+                navigate('/login')
+            } else {
+                alert("Error on Register");
+            }
+        })
         .then(err => {console.log("err = ", err); console.log("noo")});
 
         console.log("values ==", values);
     }
 
-    console.log("registert")
+    console.log("register start")
 
   return (
     <div className='d-flex justify-content-center align-items-center bg-primary vh-100'>

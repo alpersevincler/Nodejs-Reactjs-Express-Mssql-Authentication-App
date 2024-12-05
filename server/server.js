@@ -37,7 +37,6 @@ let dataDB = await db.request().query(queryClick);
 console.log("dataDB = ", dataDB.recordsets);
 
 app.post('/register', async(req, res) => {
-
     try{
         bcrypt.hash(req.body.password.toString(), salt, async (err, hash) => {
             if(err) return res.json({Error: "Error for hashing password"});
@@ -54,7 +53,6 @@ app.post('/register', async(req, res) => {
         console.log("server sql error = ", error);
     }
 
-    
     // const sql = "INSERT INTO login (`name`,`email`,`password`) VALUES (?)";
 
     // bcrypt.hash(req.body.password.toString(), salt, (err, hash) => {
