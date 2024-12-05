@@ -70,6 +70,36 @@ app.post('/register', async(req, res) => {
 });
 
 
+app.post('/login', async(req, res) => {
+
+    // try{
+
+    // }catch {
+
+    // }
+
+    const sql = `SELECT * from login WHERE email = '${req.body.email}'`;
+
+    await db.request().query(sql, function(err, dataser) {
+        if(err) 
+            return res.json({Error: "Login Error in server"});
+        if(dataser.length > 0) {
+            bcrypt.compare(req.body.password.toString(), dataser[0].password, (err, response) => {
+                if(err)
+                    return res.json({Error : "Password compare error"});
+                if(response) {
+                    return res.json({Status: "Success"});
+                }else {
+                    return res.json({Error: "Password not matched"});
+                }
+            })
+        }else {
+            return res.json({Error: dataser[0]});
+        }
+    })
+});
+
+
 app.listen(8081, () => {
     console.log("Running on port 8081");
 })

@@ -12,14 +12,14 @@ function Register() {
         event.preventDefault();
         axios.post('http://localhost:8081/register', values)
         .then(res => {
-            console.log("res = ", res)
+            console.log("res on server = ", res)
             if(res.data.Status === "Success") {
                 navigate('/login')
             } else {
                 alert("Error on Register");
             }
         })
-        .then(err => {console.log("err = ", err); console.log("noo")});
+        .then(err => {console.log("if there is err = ", err);});
 
         console.log("values ==", values);
     }
