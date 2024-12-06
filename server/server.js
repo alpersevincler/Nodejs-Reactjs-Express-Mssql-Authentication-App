@@ -74,21 +74,23 @@ app.post('/login', async(req, res) => {
 
     try{
         let queryEmail = `SELECT * from login WHERE email = '${req.body.email}'`;
-        // let sql = await db.request().query(queryEmail)
-        // console.log(sql.recordset[0].password);
+        let sql = await db.request().query(queryEmail);
+        console.log(sql.recordset[0].password);
+        if(sql) {
+            bcrypt.compare(req.body.password.toString(), sql.recordset[0].password, (err, response) => {
+                if(err)
+                    return res.json({Error: "Password compare error"});
+                if(response) {
+                    return res.json({Status: "Success"});
+                }else {
+                    return res.json({Error: "Password not matched"});
+                }
+            })
+        }
         // return res.send(sql);
-        await db.request().query(queryEmail, (err, result) => {
-            if(err) {
-                console.log("Error Query: ", err);
-                res.json({Error: "Login Query Error in server"})
-            }
-            if(result) {
-                console.log("resultttt = ", result.output);
-                res.send(result);
-            }
-        })
     }catch(error) {
         console.log("mail error = ", error);
+        return res.json({Error: "Error on server"})
     }
     /* 
     const sql = `SELECT * from login WHERE email = '${req.body.email}'`;
