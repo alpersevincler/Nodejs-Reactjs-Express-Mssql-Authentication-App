@@ -87,7 +87,7 @@ app.post('/login', async(req, res) => {
                 }
             })
         }
-        // return res.send(sql);
+        // return res.send(sql); -> Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client hatası
     }catch(error) {
         console.log("mail error = ", error);
         return res.json({Error: "Error on server"})
