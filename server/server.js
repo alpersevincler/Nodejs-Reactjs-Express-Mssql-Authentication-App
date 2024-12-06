@@ -72,12 +72,25 @@ app.post('/register', async(req, res) => {
 
 app.post('/login', async(req, res) => {
 
-    // try{
-
-    // }catch {
-
-    // }
-
+    try{
+        let queryEmail = `SELECT * from login WHERE email = '${req.body.email}'`;
+        // let sql = await db.request().query(queryEmail)
+        // console.log(sql.recordset[0].password);
+        // return res.send(sql);
+        await db.request().query(queryEmail, (err, result) => {
+            if(err) {
+                console.log("Error Query: ", err);
+                res.json({Error: "Login Query Error in server"})
+            }
+            if(result) {
+                console.log("resultttt = ", result.output);
+                res.send(result);
+            }
+        })
+    }catch(error) {
+        console.log("mail error = ", error);
+    }
+    /* 
     const sql = `SELECT * from login WHERE email = '${req.body.email}'`;
 
     await db.request().query(sql, function(err, dataser) {
@@ -94,9 +107,10 @@ app.post('/login', async(req, res) => {
                 }
             })
         }else {
-            return res.json({Error: dataser[0]});
+            return res.send("dataser");
         }
-    })
+    }) 
+    */
 });
 
 

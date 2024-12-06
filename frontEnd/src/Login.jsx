@@ -17,7 +17,9 @@ function Login() {
             if(res.data.Status === "Success") {
                 navigate('/')
             } else {
-                alert(res.data.Error);
+                alert(res.data);
+                // console.log("res mail = ", res.data.recordsets[0][0].name);
+                console.log("res email = ", res);
             }
         })
         .then(err => {console.log("if there is err = ", err);});
