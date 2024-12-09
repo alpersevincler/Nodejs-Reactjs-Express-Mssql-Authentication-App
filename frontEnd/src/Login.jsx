@@ -17,14 +17,14 @@ function Login() {
             if(res.data.Status === "Success") {
                 navigate('/')
             } else {
-                alert(res.data);
+                alert("Login Failed: " + res.data.Error);
                 // console.log("res mail = ", res.data.recordsets[0][0].name);
                 console.log("res email = ", res);
             }
         })
         .then(err => {console.log("if there is err = ", err);});
 
-        console.log("values ==", values);
+        console.log("values =", values);
     }
 
   return (

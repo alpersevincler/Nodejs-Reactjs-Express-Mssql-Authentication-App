@@ -34,7 +34,7 @@ let queryClick = `SELECT * from login`;
 
 let dataDB = await db.request().query(queryClick);
 
-console.log("dataDB = ", dataDB.recordsets);
+console.log("dataDB = ", dataDB.recordset);
 
 app.post('/register', async(req, res) => {
     try{
@@ -75,7 +75,7 @@ app.post('/login', async(req, res) => {
     try{
         let queryEmail = `SELECT * from login WHERE email = '${req.body.email}'`;
         let sql = await db.request().query(queryEmail);
-        console.log(sql.recordset[0].password);
+        // console.log(sql.recordset[0].password);
         if(sql) {
             bcrypt.compare(req.body.password.toString(), sql.recordset[0].password, (err, response) => {
                 if(err)
