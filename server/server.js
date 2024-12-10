@@ -11,7 +11,11 @@ const salt = 10;
 const app = express();
 
 app.use(express.json());
-app.use(cors());
+app.use(cors({
+    origin: ["http://localhost:5173"],
+    methods: ["POST", "GET"],
+    credentials: true
+}));
 app.use(cookieParser());
 
 const db = await mssql.connect({
@@ -86,6 +90,8 @@ app.post('/login', async(req, res) => {
                     // jsonwebtoken(jwt) ile token oluştuduk. jwt-secret-key-> primary key(min 21 karakter önerilir güvenlik için), 
                     //  -expiresIn: '1d'-> 1 gün(1d) boyunca geçirlilik ömrü olsun
                     const token = jwt.sign({name}, "jwt-secret-key", {expiresIn: '1d'});
+
+                    res.cookie('token', token);
 
                     return res.json({Status: "Success"});
                 }else {

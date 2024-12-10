@@ -7,6 +7,7 @@ function Login() {
 
     const [values, setValues] = useState({email: '', password: ''});
     const navigate = useNavigate();
+    axios.defaults.withCredentials = true;
 
     const handleSubmit = (event) => {
         // event.preventDefault() ile form'daki button'a tıklandığında sayfanın yenilenmesini engellemiş olduk
