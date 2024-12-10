@@ -81,6 +81,12 @@ app.post('/login', async(req, res) => {
                 if(err)
                     return res.json({Error: "Password compare error"});
                 if(response) {
+                    // sorgudan gelen cevabın içindeki name bilgisi
+                    const name = sql.recordset[0].name;
+                    // jsonwebtoken(jwt) ile token oluştuduk. jwt-secret-key-> primary key(min 21 karakter önerilir güvenlik için), 
+                    //  -expiresIn: '1d'-> 1 gün(1d) boyunca geçirlilik ömrü olsun
+                    const token = jwt.sign({name}, "jwt-secret-key", {expiresIn: '1d'});
+
                     return res.json({Status: "Success"});
                 }else {
                     return res.json({Error: "Password not matched"});
