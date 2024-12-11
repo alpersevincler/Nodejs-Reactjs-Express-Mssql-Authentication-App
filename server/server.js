@@ -40,6 +40,25 @@ let dataDB = await db.request().query(queryClick);
 
 console.log("dataDB = ", dataDB.recordset);
 
+
+const verifyUser = (req, res, next) => {
+    const token = req.cookies.token;
+    if(!token) {
+        return res.json({Error: "You are not authenticated"});
+    }else {
+        jwt.verify(token, "jwt-secret-key", (err, decoded) => {
+            if(err) {
+                return res.json({Error: "Token is not okay"});
+            }else {
+                req.name = decoded.name;
+                next();
+            }
+        })
+    }
+}
+
+
+
 app.post('/register', async(req, res) => {
     try{
         bcrypt.hash(req.body.password.toString(), salt, async (err, hash) => {
@@ -88,7 +107,7 @@ app.post('/login', async(req, res) => {
                     // sorgudan gelen cevabın içindeki name bilgisi
                     const name = sql.recordset[0].name;
                     // jsonwebtoken(jwt) ile token oluştuduk. jwt-secret-key-> primary key(min 21 karakter önerilir güvenlik için), 
-                    //  -expiresIn: '1d'-> 1 gün(1d) boyunca geçirlilik ömrü olsun
+                    //  -expiresIn: '1d'-> 1 gün(1d) boyunca geçerli ömrü olsun
                     const token = jwt.sign({name}, "jwt-secret-key", {expiresIn: '1d'});
 
                     res.cookie('token', token);

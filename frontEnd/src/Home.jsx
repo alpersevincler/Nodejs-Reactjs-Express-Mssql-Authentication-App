@@ -8,9 +8,10 @@ function Home() {
   const [message, setMessage] = useState('');
   const [name, setName] = useState('');
   const navigate = useNavigate();
+  axios.defaults.withCredentials = true;
 
   useEffect( () => {
-    axios.get('/')
+    axios.get('http://localhost:8081')
     .then(res => {
       if(res.data.Status === "Success") {
         setAuth(true)
