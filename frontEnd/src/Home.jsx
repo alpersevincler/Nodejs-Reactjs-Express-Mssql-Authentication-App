@@ -16,7 +16,6 @@ function Home() {
       if(res.data.Status === "Success") {
         setAuth(true)
         setName(res.data.name)
-        navigate('/login')
       }else {
         setAuth(false)
         setMessage(res.data.Error)
@@ -30,7 +29,7 @@ function Home() {
       {
         auth ?
         <div>
-          <h3>You are Atuhorized - {name}</h3>
+          <h3>You are Authorized - {name}</h3>
           <button className='btn btn-danger'>Logout</button>
         </div>
         :

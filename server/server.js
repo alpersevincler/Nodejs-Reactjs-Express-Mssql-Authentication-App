@@ -57,7 +57,9 @@ const verifyUser = (req, res, next) => {
     }
 }
 
-
+app.get('/', verifyUser, (req, res) => {
+    return res.json({Status: "Success", name: req.name});
+})
 
 app.post('/register', async(req, res) => {
     try{
