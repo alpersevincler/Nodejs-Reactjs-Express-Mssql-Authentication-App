@@ -43,6 +43,7 @@ console.log("dataDB = ", dataDB.recordset);
 
 const verifyUser = (req, res, next) => {
     const token = req.cookies.token;
+    console.log("verifyUser token = ", token);
     if(!token) {
         return res.json({Error: "You are not authenticated"});
     }else {
@@ -57,6 +58,8 @@ const verifyUser = (req, res, next) => {
     }
 }
 
+// Home.jsx'deki useEffect'in içindeki axios.get('http://localhost:8081') tanımı bu yapıyı tetikleyecek ve bu yapıda yukarıdaki verifyUser metodunu çalıştırıp
+//  - Home.jsx'deki useEffect'de geri response(res.json) göndermiş olacacak
 app.get('/', verifyUser, (req, res) => {
     return res.json({Status: "Success", name: req.name});
 })
