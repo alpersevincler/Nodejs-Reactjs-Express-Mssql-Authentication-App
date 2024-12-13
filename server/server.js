@@ -41,7 +41,10 @@ let dataDB = await db.request().query(queryClick);
 console.log("dataDB = ", dataDB.recordset);
 
 
+// aşağıdaki app.get('/', verifyUser,...) yapısı tetiklendiğinde bu metodu çalıştıracak ve ('/') sayfası içinde cookies token bilgisinin de olduğu 
+//  -objeler ve diziler silsilesi bulunan datayı bu metoda req(request) olarak göndermiş olacak
 const verifyUser = (req, res, next) => {
+    console.log("verify res = ", res.cookies);
     const token = req.cookies.token;
     console.log("verifyUser token = ", token);
     if(!token) {
@@ -51,7 +54,9 @@ const verifyUser = (req, res, next) => {
             if(err) {
                 return res.json({Error: "Token is not okay"});
             }else {
+                console.log("req.nam = ", req.name);
                 req.name = decoded.name;
+                console.log("decoded.nam = ", req.name);
                 next();
             }
         })
@@ -59,8 +64,9 @@ const verifyUser = (req, res, next) => {
 }
 
 // Home.jsx'deki useEffect'in içindeki axios.get('http://localhost:8081') tanımı bu yapıyı tetikleyecek ve bu yapıda yukarıdaki verifyUser metodunu çalıştırıp
-//  - Home.jsx'deki useEffect'de geri response(res.json) göndermiş olacacak
+//  - Home.jsx'deki useEffect'e geri response(res.json) göndermiş olacacak
 app.get('/', verifyUser, (req, res) => {
+    console.log("app.get req = ", req.cookies);
     return res.json({Status: "Success", name: req.name});
 })
 
