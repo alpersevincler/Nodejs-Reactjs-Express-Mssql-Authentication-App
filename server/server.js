@@ -50,14 +50,17 @@ const verifyUser = (req, res, next) => {
     if(!token) {
         return res.json({Error: "You are not authenticated"});
     }else {
+        // aşağıdaki app.post('/login', "jwt-secret-key") yapısı içindeki 'const token = jwt.sign({name}, "jwt-secret-key")' tanımından geliyor
         jwt.verify(token, "jwt-secret-key", (err, decoded) => {
             if(err) {
                 return res.json({Error: "Token is not okay"});
             }else {
                 console.log("req.nam = ", req.name);
+                // aşağıdaki app.post('/login') yapısı içindeki 'const token = jwt.sign({name}' tanımından geliyor
                 req.name = decoded.name;
                 console.log("decoded.nam = ", req.name);
-                next();
+                // metodun middleware fonk.'unu çalıştırdık, çalıştırmasaydık bu metot boş dönecekti ve alttaki app.get('/', verifyUser,) yapısı çalışmayacaktı
+                return next();
             }
         })
     }
