@@ -24,13 +24,21 @@ function Home() {
     .then(err => console.log(err));
   }, [])
 
+  const handleDelete = () => {
+    axios.get('http://localhost:8081/logout')
+    .then(res => {
+      location.reload(true);
+    })
+    .catch(err => console.log(err));
+  }
+
   return (
     <div className='container mt-4'>
       {
         auth ?
         <div>
           <h3>You are Authorized - {name}</h3>
-          <button className='btn btn-danger'>Logout</button>
+          <button className='btn btn-danger' onClick={handleDelete}>Logout</button>
         </div>
         :
         <div>

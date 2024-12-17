@@ -69,6 +69,7 @@ const verifyUser = (req, res, next) => {
 // Home.jsx'deki useEffect'in içindeki axios.get('http://localhost:8081') tanımı bu yapıyı tetikleyecek ve bu yapıda yukarıdaki verifyUser metodunu çalıştırıp
 //  - Home.jsx'deki useEffect'e geri response(res.json) göndermiş olacacak
 app.get('/', verifyUser, (req, res) => {
+    // req'in içeriğinde cookies ve altındaki token bilgisinin de olduğu objeler ve diziler silsilesi bulunan data bulunmaktadır.
     console.log("app.get req = ", req.cookies);
     return res.json({Status: "Success", name: req.name});
 })
