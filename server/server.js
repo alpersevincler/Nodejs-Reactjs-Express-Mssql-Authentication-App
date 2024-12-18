@@ -161,6 +161,10 @@ app.post('/login', async(req, res) => {
     */
 });
 
+app.get('/logout', (req, res) => {
+    res.clearCookie('token');
+    return res.json({Status: "Success"});
+})
 
 app.listen(8081, () => {
     console.log("Running on port 8081");
