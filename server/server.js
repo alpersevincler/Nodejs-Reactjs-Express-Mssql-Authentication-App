@@ -34,10 +34,9 @@ const db = await mssql.connect({
     // ,"driver": "msnodesqlv8",
 });
 
+// --database select query connection test--
 let queryClick = `SELECT * from login`;
-
 let dataDB = await db.request().query(queryClick);
-
 console.log("dataDB = ", dataDB.recordset);
 
 

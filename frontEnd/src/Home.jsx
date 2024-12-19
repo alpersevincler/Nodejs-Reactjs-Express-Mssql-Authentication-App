@@ -10,6 +10,7 @@ function Home() {
   const navigate = useNavigate();
   axios.defaults.withCredentials = true;
 
+  
   useEffect( () => {
     axios.get('http://localhost:8081')
     .then(res => {
@@ -24,9 +25,12 @@ function Home() {
     .then(err => console.log(err));
   }, [])
 
+
+  // Logout butonuna tıklanınca bu metot çalışacak
   const handleDelete = () => {
     axios.get('http://localhost:8081/logout')
     .then(res => {
+      // server tarafından yanıt gelince sayfayı yeniden yükle
       location.reload(true);
     })
     .catch(err => console.log(err));
