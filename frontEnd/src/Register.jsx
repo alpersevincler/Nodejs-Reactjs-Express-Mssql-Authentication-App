@@ -4,7 +4,9 @@ import axios from 'axios'
 
 function Register() {
 
+    // return'ün altındaki inputlara değer girildğinde setValues fonk.u ile values objesinin içine değerler atanacak
     const [values, setValues] = useState({name: '', email: '', password: ''});
+    // sayfa yönlendirmeleri için gereken bağımlılık
     const navigate = useNavigate();
 
     const handleSubmit = (event) => {
@@ -33,16 +35,22 @@ function Register() {
             <form onSubmit={handleSubmit}>
                 <div className='mb-3'>
                     <label htmlFor="name"><strong>Name</strong></label>
+                    {/* inputa değer girildiğinde onChange bunu e ile yakalayacak. yukarıda tanımlanmış setValues fonk. ile e'nin içindeki value'yu(girilen değeri),
+                    yine yukarıda tanımlanan values(...values ile)'un içindeki name bilgisine set edecek(tanımlamış, göndermiş olacak) */}
                     <input type="text" placeholder='Enter Name' name='name'
                     onChange={e => setValues({...values, name: e.target.value})} className='form-control rounded-0' />
                 </div>
                 <div className='mb-3'>
                     <label htmlFor="email"><strong>E-mail</strong></label>
+                    {/* inputa değer girildiğinde onChange bunu e ile yakalayacak. yukarıda tanımlanmış setValues fonk. ile e'nin içindeki value'yu(girilen değeri),
+                    yine yukarıda tanımlanan values(...values ile)'un içindeki email bilgisine set edecek(tanımlamış, göndermiş olacak) */}
                     <input type="email" placeholder='Enter E-mail' name='email'
                     onChange={e => setValues({...values, email: e.target.value})} className='form-control rounded-0' />
                 </div>
                 <div className='mb-3'>
                     <label htmlFor="password"><strong>Password</strong></label>
+                    {/* inputa değer girildiğinde onChange bunu e ile yakalayacak. yukarıda tanımlanmış setValues fonk. ile e'nin içindeki value'yu(girilen değeri),
+                    yine yukarıda tanımlanan values(...values ile)'un içindeki password bilgisine set edecek(tanımlamış, göndermiş olacak) */}
                     <input type="password" placeholder='Enter Password' name='password' 
                     onChange={e => setValues({...values, password: e.target.value})} className='form-control rounded-0' />
                 </div>

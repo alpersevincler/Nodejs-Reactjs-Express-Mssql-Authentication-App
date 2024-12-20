@@ -1,11 +1,17 @@
 - Database bağlantısı için server klasörü altındaki server.js'de "db" yapısını oluştur.
     Altına app.listen yapısını oluştur.
     server klasörü altındaki package.json dosyasında "scripts"'in altına "start": "nodemon server.js" tanımlamasını yaptıktan sonra 
-        terminalde "cd server" yazıp server klasörüne girip "npm start" yazarak server'ı başlatabilirsin.
+        terminalde "cd server" yazıp server klasörüne geçiş yapıp "npm start" yazarak server'ı başlatabilirsin.
 
 - frontEnd klasörü altındaki src klasörü altındaki main.jsx dosyasında ilgili bootstrap kütüphanesini import et
 
-- Register işlemi ve Anasayfauı oluşturmak için:
-    frontEnd klasörü altındaki src klasörü altına Register.jsx componentini oluştur içine return'ün altına sayfa yapısını oluştur.
+- server ve react tarafını aynı anda ayağa kaldırmak adına iki ayrı terminal aç
+    ana klasördeyken ilk terminalde "cd server" yazıp server klasörüne geçiş yapıp "npm start" yazarak server'ı başlat
+    yine ana klasördeyken ikinci terminalde "cd frontEnd" yazıp frontEnd klasörüne geçiş yapıp "npm run dev" yazarak react'ı başlat
+
+- Register işlemi ve Anasayfayı oluşturmak için:
+    frontEnd klasörü altındaki src klasörü altına Register.jsx componentini oluştur içine, return'ün altına sayfa yapısını oluştur.
     Aynı şekilde src klasörü altına Home.jsx componentini oluştur içine return'ün altına sayfa yapısını oluştur.
-    src klasörü altındaki App.jsx dosyasında olulturduğun componentleri import et ve ilgili Route yapısını oluştur.
+    src klasörü altındaki App.jsx dosyasında oluşturduğun componentleri import et ve ilgili Route yapısını oluştur.
+
+    Register.jsx'de const [values, setValues] yapısını kur ve ilgili inputlara onChange özelliğini tanımla.
