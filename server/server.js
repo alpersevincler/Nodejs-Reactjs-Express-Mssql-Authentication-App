@@ -73,16 +73,25 @@ app.get('/', verifyUser, (req, res) => {
     return res.json({Status: "Success", name: req.name});
 })
 
+// Register.jsx'deki handleSubmit metodunun altındaki axios.post('http://localhost:8081/register', values) yapısı bu oluşturduğumuz api'ye values objesini gönderecek
+//  -ve bu objeyi req olarak burada almış olacağız
 app.post('/register', async(req, res) => {
     try{
+        // bcrypt kütüphanesi Register.jsx'den gelen req'in altındaki password bilgisini şifreleyecek, geriye varsa hata(err) ve şifrelediği datayı(hash) döndürecek
         bcrypt.hash(req.body.password.toString(), salt, async (err, hash) => {
+            // şifrelemede bir hata varsa bunu geriye json formatındaki res olarak return edecek
             if(err) return res.json({Error: "Error for hashing password"});
 
+            // DB'ye göndereceğimiz sorguyu tanımladık. Register.jsx'den gelen datanın içindeki name, email ve yukarıdaki şifrelenmiş hash bilgilerini dinamik olarak kullandık
             const sql = `INSERT INTO login (name, email, password) VALUES ('${req.body.name}', '${req.body.email}', '${hash}')`;
 
+            // Yukarıda tanımladığımız sorguyu(sql) DB'ye gönderdik. Oradan geriye varsa bir hata(err) ve bir sonuç(result) geri dönecek
             await db.request().query(sql, (err, result) => {
+                // DB'den gelen cevapta bir hata var ise json formatında geriye res olarak return edecek
                 if(err)
                     return res.json({Error: "Inserting data Error in server", err});
+                console.log("Register result = ", result);
+                // Sorguda bir hata yok ise res olarak geriye json formatında bir Success değerine sahip Status return edilecek
                 return res.json({Status: "Success", result});
             });
         })

@@ -13,10 +13,10 @@ function Register() {
     const handleSubmit = (event) => {
         // event.preventDefault() ile form'daki button'a tıklandığında sayfanın yenilenmesini engellemiş olduk
         event.preventDefault();
-        // axios ile verdiğimiz linkle server.js'deki app.post('/register') yapısı ile haberleşip values değeririni res oraya olarak göndermiş olacağız
+        // axios ile verdiğimiz serverın çalışacağı linkle, server.js'deki app.post('/register') yapısı ile haberleşip values değerini req olarak server'a göndermiş olacağız
         // server.js'den gelen res cavabını alacağız ve bu res'in altındaki Status'un değeri "Success" ise useNavigate ile login sayfasına yönledirme yapmış olacağız
-        // -Gelen cevabın içeriği farklı ise sayfada Error on Register hatası uyarı olarak gösterilecek. Eğer post yapısı ile bağlantıda bir problem varsa oradan dönen
-        // -hata tarayıcı konsoluna yazdırılacak
+        //  -Gelen cevabın içeriği farklı ise sayfada Error on Register hatası uyarı olarak gösterilecek. Eğer post yapısı ile bağlantıda bir problem varsa oradan dönen
+        //  -hata, tarayıcı konsoluna yazdırılacak
         axios.post('http://localhost:8081/register', values)
         .then(res => {
             console.log("res on server = ", res)
@@ -37,7 +37,7 @@ function Register() {
     <div className='d-flex justify-content-center align-items-center bg-primary vh-100'>
         <div className='bg-white p-3 rounded w-50'>
             <h2>Sign-Up</h2>
-            {/* formdaki button'a tıklandığında onSubmit ile belirlediğimiz, yukarıda tanımladığımız handleSubmit metodu çalışacak */}
+            {/* formdaki button'a tıklandığında onSubmit attribute'u ile yukarıda tanımladığımız handleSubmit metodu çalışacak */}
             <form onSubmit={handleSubmit}>
                 <div className='mb-3'>
                     <label htmlFor="name"><strong>Name</strong></label>
