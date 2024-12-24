@@ -87,13 +87,16 @@ app.post('/register', async(req, res) => {
 
             // Yukarıda tanımladığımız sorguyu(sql) DB'ye gönderdik. Oradan geriye varsa bir hata(err) ve bir sonuç(result) geri dönecek
             await db.request().query(sql, (err, result) => {
-                // DB'den gelen cevapta bir hata var ise json formatında geriye res olarak return edecek
+                // DB'den gelen cevapta bir hata var ise res olarak, geriye json formatında bir hata mesajı değerine sahip Error return edilecek
                 if(err)
                     return res.json({Error: "Inserting data Error in server", err});
                 console.log("Register result = ", result);
-                // Sorguda bir hata yok ise res olarak geriye json formatında bir Success değerine sahip Status return edilecek
+                // Sorguda bir hata yok ise res olarak, geriye json formatında bir Success değerine sahip Status return edilecek
                 return res.json({Status: "Success", result});
             });
+
+            const result2 = await db.request().query(sql);
+            console.log("Register result2 = ", result2);
         })
     }catch(error) {
         console.log("server sql error = ", error);
