@@ -14,4 +14,5 @@
     Aynı şekilde src klasörü altına Home.jsx componentini oluştur içine return'ün altına sayfa yapısını oluştur.
     src klasörü altındaki App.jsx dosyasında oluşturduğun componentleri import et ve ilgili Route yapısını oluştur.
 
-    Register.jsx'de const [values, setValues] yapısını kur ve ilgili inputlara onChange özelliğini tanımla.
+    Register.jsx'de const [values, setValues] şekildeki useState yapısını kur ve ilgili inputlara onChange özelliğini tanımla.
+        onChange yapısı input'lara girilen değerleri useState'deki values objesinin içine set edecek(tanımlamış, göndermiş olacak).
