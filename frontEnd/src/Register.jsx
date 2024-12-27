@@ -10,9 +10,31 @@ function Register() {
     const navigate = useNavigate();
 
     // formdaki button'a tıklandığında bu metot çalışacaktır
-    const handleSubmit = (event) => {
+    const handleSubmit = async(event) => {
         // event.preventDefault() ile form'daki button'a tıklandığında sayfanın yenilenmesini engellemiş olduk
         event.preventDefault();
+
+        await fetch('http://localhost:8081/register', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            },
+            body: JSON.stringify({...values})
+        })
+        .then((res) => {
+            res.json().then((jsonResponse) => {
+                console.log("Register json = ", jsonResponse)
+                if(jsonResponse.Status === "Success") {
+                    navigate('/login')
+                } else {
+                    alert("Error on Register");
+                }
+            })
+        })
+        .catch(err => console.log("if there is err = ", err));
+
+        /* 
         // axios ile verdiğimiz serverın çalışacağı linkle, server.js'deki app.post('/register') yapısı ile haberleşip values değerini req olarak server'a göndermiş olacağız
         // server.js'den gelen res cavabını alacağız ve bu res'in altındaki Status'un değeri "Success" ise useNavigate ile login sayfasına yönledirme yapmış olacağız
         //  -Gelen cevabın içeriği farklı ise sayfada Error on Register hatası uyarı olarak gösterilecek. Eğer post yapısı ile bağlantıda bir problem varsa oradan dönen
@@ -27,6 +49,7 @@ function Register() {
             }
         })
         .then(err => {console.log("if there is err = ", err);});
+        */
 
         console.log("values ==", values);
     }
