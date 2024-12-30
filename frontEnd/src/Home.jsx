@@ -12,10 +12,8 @@ function Home() {
 
   
   useEffect( () => {
-    /*     
     axios.get('http://localhost:8081')
     .then(res => {
-      console.log("home.jsx useEffect res = ", res.data.Status)
       if(res.data.Status === "Success") {
         setAuth(true)
         setName(res.data.name)
@@ -24,8 +22,7 @@ function Home() {
         setMessage(res.data.Error)
       }
     })
-    .then(err => console.log(err)); 
-    */
+    .then(err => console.log(err));
   }, [])
 
 
